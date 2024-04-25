@@ -55,3 +55,8 @@ class CancionSchema (CancionBase):
 
     class Config:
         orm_mode = True
+
+
+class TokenData(BaseModel):
+    access_token: str
+    token_type: str
