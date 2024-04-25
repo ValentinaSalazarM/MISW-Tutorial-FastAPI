@@ -10,6 +10,8 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 
+from worker.tasks import registrar_log
+
 SECRET_KEY = "secret-key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
@@ -45,6 +47,7 @@ async def login_for_access_token(user: UsuarioLoginSchema, db: Session = Depends
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail = 'La contraseña no es correcta.')
 
+    registrar_log.delay(user.nombre, datetime.now(timezone.utc))
     expires_delta = timedelta(minutes = ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token_data={'sub': user_db.nombre,
                        'exp': datetime.now(timezone.utc) + expires_delta}
