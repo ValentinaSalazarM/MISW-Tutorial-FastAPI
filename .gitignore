@@ -2,6 +2,20 @@
 __pycache__/
 *.py[cod]
 *$py.class
+.vscode
+*.pyc
+__pycache__
+env3.7
+env3.6
+env
+dist
+.mypy_cache
+.idea
+site
+.coverage
+htmlcov
+.pytest_cache
+coverage.xml
 
 # C extensions
 *.so
@@ -141,7 +155,8 @@ cython_debug/
 .vscode
 
 #DataBase
-test.db
+.db
+.rdb
 
 #Node
 node_modules/
